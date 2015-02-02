@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/go/bin:/Users/dan/development/android/sdk/platform-tools:/Users/dan/development/android/sdk/tools:/Users/dan/development/platform-tools:/Users/dan/development/tools:/Users/dan/development/android/sdk/platform-tools:/Users/dan/development/android/sdk/tools:/Users/dan/go/bin:/usr/local/mysql/bin/"
+export PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:/Applications/Postgres.app/Contents/Versions/9.3/bin:/usr/local/sbin:/opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/go/bin:/Users/dan/development/android/sdk/platform-tools:/Users/dan/development/android/sdk/tools:/Users/dan/development/platform-tools:/Users/dan/development/tools:/Users/dan/development/android/sdk/platform-tools:/Users/dan/development/android/sdk/tools:/Users/dan/go/bin:/usr/local/mysql/bin/:/opt/protobuf-2.6.0/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -78,3 +78,7 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:/Applications
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+export GOPATH=~/go
+export WORKON_HOME=~/virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+alias rmpyc='find . -name "*.pyc" -exec rm -rf {} \;'
