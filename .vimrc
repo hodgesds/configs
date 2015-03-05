@@ -28,6 +28,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-fireplace'
+Plugin 'kien/ctrlp.vim'
+Plugin 'vim-scripts/mru.vim'
+Plugin 'michaeljsmith/vim-indent-object'
 call vundle#end()
 
 filetype plugin indent on
