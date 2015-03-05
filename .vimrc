@@ -23,8 +23,11 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-markdown'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rking/ag.vim'
-"Plugin 'klen/python-mode'
 Plugin 'elzr/vim-json'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'itchyny/lightline.vim'
+Plugin 'tpope/vim-fireplace'
 call vundle#end()
 
 filetype plugin indent on
