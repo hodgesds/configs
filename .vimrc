@@ -1,4 +1,10 @@
 set encoding=utf-8
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
 syntax enable
 set tags+=tags;$HOME
 set hlsearch
@@ -26,24 +32,27 @@ Plugin 'rking/ag.vim'
 Plugin 'elzr/vim-json'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'itchyny/lightline.vim'
-Plugin 'tpope/vim-fireplace'
+"Plugin 'itchyny/lightline.vim'
+"Plugin 'tpope/vim-fireplace'
 Plugin 'kien/ctrlp.vim'
-Plugin 'vim-scripts/mru.vim'
+"Plugin 'vim-scripts/mru.vim'
 Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'bling/vim-airline'
 call vundle#end()
 
 filetype plugin indent on
 
 set number
 set ruler
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+
+set timeout ttimeoutlen=50
+nnoremap <A-j> <C-W><C-J> 
+nnoremap <A-k> <C-W><C-K>
+nnoremap <A-l> <C-W><C-L>
+nnoremap <A-h> <C-W><C-H>
 set splitbelow
 set splitright
-inoremap jk <esc>
+" inoremap jk <esc>
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
@@ -61,3 +70,6 @@ func! DeleteTrailingWS()
    exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
+
+
+let g:airline#extensions#tabline#enabled = 1
