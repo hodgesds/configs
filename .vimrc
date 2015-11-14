@@ -33,11 +33,13 @@ Plugin 'elzr/vim-json'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'itchyny/lightline.vim'
+Plugin 'junegunn/vim-easy-align'
 "Plugin 'tpope/vim-fireplace'
 Plugin 'kien/ctrlp.vim'
 "Plugin 'vim-scripts/mru.vim'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'bling/vim-airline'
+Plugin 'fatih/vim-go'
 call vundle#end()
 
 filetype plugin indent on
@@ -73,3 +75,9 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 
 
 let g:airline#extensions#tabline#enabled = 1
+
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
