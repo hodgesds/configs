@@ -1,0 +1,20 @@
+[core]
+	editor = vim
+[user]
+	name = Daniel Hodges
+	email = hodges.daniel.scott@gmail.com
+[alias]
+    st = status
+    br = branch
+    brr = branch -r
+    co = checkout
+    cob = checkout -b
+    dlc = diff --cached HEAD^
+    hard = reset HEAD --hard
+    ammend = commit -a --amend
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lgg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+[color]
+	ui = auto
+[push]
+	default = simple
