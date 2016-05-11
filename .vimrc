@@ -42,6 +42,16 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'vim-airline/vim-airline'
 Plugin 'fatih/vim-go'
+" FUCKING JAVASCRIPT
+Plugin 'jelera/vim-javascript-syntax'
+" FUCKING PHP
+Plugin 'joonty/vim-phpqa.git'
+" Go
+Plugin 't-yuki/vim-go-coverlay'
+
+" Python
+Plugin 'jmcantrell/vim-virtualenv'
+
 call vundle#end()
 
 filetype plugin indent on
@@ -77,6 +87,8 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 
 
 let g:airline#extensions#tabline#enabled = 1
+"let g:airline_powerline_fonts = 1
+let g:airline_theme = 'molokai'
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
@@ -102,6 +114,11 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 0
+
+" emmet only html, css files
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
