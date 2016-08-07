@@ -15,7 +15,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
-set nocompatible 
+set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -23,7 +23,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'scrooloose/syntastic'
+Plugin 'rust-lang/rust.vim'
+Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-surround'
@@ -56,11 +57,14 @@ call vundle#end()
 
 filetype plugin indent on
 
+" rust
+let g:rustfmt_autosave = 1
+
 set number
 set ruler
 
 set timeout ttimeoutlen=50
-nnoremap <A-j> <C-W><C-J> 
+nnoremap <A-j> <C-W><C-J>
 nnoremap <A-k> <C-W><C-K>
 nnoremap <A-l> <C-W><C-L>
 nnoremap <A-h> <C-W><C-H>
