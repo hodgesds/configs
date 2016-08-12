@@ -18,37 +18,37 @@ set expandtab
 set nocompatible
 filetype off
 
+inoremap jk <esc>
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'rust-lang/rust.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-fugitive'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-markdown'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rking/ag.vim'
-Plugin 'elzr/vim-json'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'szw/vim-tags'
-"Plugin 'itchyny/lightline.vim'
-Plugin 'junegunn/vim-easy-align'
-"Plugin 'tpope/vim-fireplace'
-Plugin 'kien/ctrlp.vim'
-"Plugin 'vim-scripts/mru.vim'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'vim-airline/vim-airline'
+Plugin 'elzr/vim-json'
 Plugin 'fatih/vim-go'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'rking/ag.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'szw/vim-tags'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-airline/vim-airline'
+"Plugin 'tpope/vim-fireplace'
+"Plugin 'vim-scripts/mru.vim'
+"
 " FUCKING JAVASCRIPT
 Plugin 'jelera/vim-javascript-syntax'
+Plugin 'vim-airline/vim-airline-themes'
 " FUCKING PHP
 Plugin 'joonty/vim-phpqa.git'
-" Go
-Plugin 't-yuki/vim-go-coverlay'
 
 " Python
 Plugin 'jmcantrell/vim-virtualenv'
@@ -87,8 +87,8 @@ func! DeleteTrailingWS()
    %s/\s\+$//ge
    exe "normal `z"
 endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
 
+autocmd BufWrite *.py :call DeleteTrailingWS()
 
 let g:airline#extensions#tabline#enabled = 1
 "let g:airline_powerline_fonts = 1
