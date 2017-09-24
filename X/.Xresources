@@ -1,0 +1,67 @@
+!xterm
+XTerm*borderWidth: 0
+XTerm*renderFont: true
+XTerm*selectToClipboard: true
+XTerm*ttyModes: erase ^?
+XTerm*vt100.backarrowKey: false
+XTerm*locale: true
+XTerm*metaSendsEscape: true
+XTerm*scrollBar: false
+XTerm*faceName: DejaVuSansMono
+!XTerm*faceSize: 10
+XTerm*autoWrap: false
+XTerm*fullscreen: false
+XTerm*termName: xterm
+XTerm*title: welp...
+XTerm*backarrowKey: true
+!XTerm*keepClipboard: true
+XTerm*on2Clicks: word
+XTerm*on3Clicks: line
+XTerm*on4Clicks: group
+XTerm*on5Clicks: all
+XTerm*pointerMode: 2
+
+!colors
+*pointerColor: white
+*pointerColorBackground: black
+*cursorColor: red
+*cursorBlink: true
+*background: rgb:1a/1a/1a
+*foreground: rgb:aa/aa/aa
+*color0:     rgb:00/00/00
+*color8:     rgb:66/66/66
+*color1:     rgb:9e/18/28
+*color9:     rgb:bc/57/66
+*color2:     rgb:00/88/00
+*color10:    rgb:61/a1/71
+*color3:     rgb:d2/bb/4b
+*color11:    rgb:e7/db/52
+*color4:     rgb:41/41/71
+*color12:    rgb:50/85/af
+*color5:     rgb:96/3c/59
+*color13:    rgb:a9/7a/99
+*color6:     rgb:41/81/79
+*color14:    rgb:6b/a4/a4
+*color7:     rgb:be/be/be
+*color15:    rgb:ff/ff/ff
+
+!font
+*faceName: DejaVuSansMono
+
+!urxvt
+URxvt.letterSpace: -1
+URxvt.perl-ext: fullscreen,resize-font
+URxvt.perl-ext-common: default,matcher # tabbed or tmux?
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline Bold fg5
+URxvt.keysym.F11: perl:fullscreen:switch
+URxvt.scrollWithBuffer: true
+URxvt.scrollBar: false
+URxvt.faceSize: 14
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+URxvt.keysym.M-Down:        \033[1;3B
+URxvt.keysym.M-Up:          \033[1;3A
+URxvt.keysym.M-Left:        \033[1;3D
+URxvt.keysym.M-Right:       \033[1;3C
