@@ -7,7 +7,7 @@ XTerm*vt100.backarrowKey: false
 XTerm*locale: true
 XTerm*metaSendsEscape: true
 XTerm*scrollBar: false
-XTerm*faceName: DejaVuSansMono
+XTerm*faceName: DejaVuSansMono:pixelsize=14:spacing=mono
 !XTerm*faceSize: 10
 XTerm*autoWrap: false
 XTerm*fullscreen: false
@@ -20,6 +20,7 @@ XTerm*on3Clicks: line
 XTerm*on4Clicks: group
 XTerm*on5Clicks: all
 XTerm*pointerMode: 2
+XTerm*scaleHeight: 1.1
 
 !colors
 *pointerColor: white
@@ -46,11 +47,12 @@ XTerm*pointerMode: 2
 *color15:    rgb:ff/ff/ff
 
 !font
-*faceName: DejaVuSansMono
+!*faceName: DejaVuSansMono:pixelsize=14
 
 !urxvt
 URxvt.letterSpace: -1
-!# tabbed or tmux?
+URxvt.lineSpace: 1
+! tabbed or tmux?
 URxvt.perl-ext-common: default,matcher,fullscreen,resize-font
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
@@ -58,7 +60,7 @@ URxvt.matcher.rend.0: Uline Bold fg5
 URxvt.keysym.F11: perl:fullscreen:switch
 URxvt.scrollWithBuffer: true
 URxvt.scrollBar: false
-URxvt.font: xft:DejaVuSansMono:pixelsize=14
+URxvt*font: xft:DejaVuSansMono:pixelsize=14
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 URxvt.keysym.M-Down:        \033[1;3B
