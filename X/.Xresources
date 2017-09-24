@@ -2,19 +2,18 @@
 XTerm*borderWidth: 0
 XTerm*renderFont: true
 XTerm*selectToClipboard: true
+!XTerm*keepClipboard: true
 XTerm*ttyModes: erase ^?
 XTerm*vt100.backarrowKey: false
 XTerm*locale: true
 XTerm*metaSendsEscape: true
 XTerm*scrollBar: false
-XTerm*faceName: DejaVuSansMono:pixelsize=14:spacing=mono
-!XTerm*faceSize: 10
-XTerm*autoWrap: false
+XTerm*faceName: DejaVuSansMono
+XTerm*autoWrap: true
 XTerm*fullscreen: false
 XTerm*termName: xterm
 XTerm*title: welp...
 XTerm*backarrowKey: true
-!XTerm*keepClipboard: true
 XTerm*on2Clicks: word
 XTerm*on3Clicks: line
 XTerm*on4Clicks: group
