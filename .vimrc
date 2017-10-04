@@ -1,15 +1,19 @@
 set encoding=utf-8
-let c='a'
-while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-  let c = nr2char(1+char2nr(c))
-endw
+
+let mapleader = ","
+"let c='a'
+"while c <= 'z'
+"  exec "set <A-".c.">=\e".c
+"  exec "imap \e".c." <A-".c.">"
+"  let c = nr2char(1+char2nr(c))
+"endw
+
 syntax enable
 set tags+=tags;$HOME
-set hlsearch
+
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
 set smartindent
 set tabstop=4
 set shiftwidth=4
@@ -41,6 +45,10 @@ Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
+Plugin 'rust-lang/rust.vim'
+Plugin 'mhinz/vim-startify'
+Plugin 'tpope/vim-rails'
+Plugin 'jodosha/vim-godebug'
 "Plugin 'tpope/vim-fireplace'
 "Plugin 'vim-scripts/mru.vim'
 "
@@ -52,6 +60,7 @@ Plugin 'joonty/vim-phpqa.git'
 
 " Python
 Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'nvie/vim-flake8'
 
 call vundle#end()
 
@@ -77,7 +86,7 @@ autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '*__pycache__$']
 nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 let g:NERDTreeWinSize=20
 
@@ -109,8 +118,24 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_metalinter_autosave = 1
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+au FileType go nmap <leader>b <Plug>(go-doc-browser)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <leader>d <Plug>(go-doc-vertical)
+au FileType go nmap <leader>f <Plug>(go-files)
+au FileType go nmap <leader>g <Plug>(go-generate)
+au FileType go nmap <leader>i <Plug>(go-imports)
+au FileType go nmap <leader>l <Plug>(go-lint)
+au FileType go nmap <leader>m <Plug>(go-metalinter)
+au FileType go nmap <leader>p <Plug>(go-deps)
+au FileType go nmap <leader>r <Plug>(go-rename)
+au FileType go nmap <leader>t <Plug>(go-info)
+au FileType go nmap <leader>v <Plug>(go-vet)
+au FileType go nmap <leader>x <Plug>(go-run-vertical)
+au FileType go nmap <leader>z <Plug>(go-coverage-clear)
 
 " syntastic
 set statusline+=%#warningmsg#
@@ -128,3 +153,6 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 nmap <F8> :TagbarToggle<CR>
+
+" rust
+let g:rustfmt_autosave = 1
