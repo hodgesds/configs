@@ -189,3 +189,11 @@ bindsym $mod+Shift+x exec i3lock -d -c202020
 bindsym XF86Tools exec i3lock -d -c202020
 
 for_window [class="^.*"] border pixel 0
+
+# screenshot via scrot:
+# fullscreen
+# window
+# select window
+bindsym Print exec scrot ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
+bindsym $mod+Print exec scrot -s ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
+bindsym $mod+Shift+Print exec scrot -u  ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
