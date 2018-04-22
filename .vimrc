@@ -1,13 +1,5 @@
 set encoding=utf-8
-
 let mapleader = ","
-"let c='a'
-"while c <= 'z'
-"  exec "set <A-".c.">=\e".c
-"  exec "imap \e".c." <A-".c.">"
-"  let c = nr2char(1+char2nr(c))
-"endw
-
 syntax enable
 set tags+=tags;$HOME
 
@@ -15,14 +7,15 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
 set smartindent
-set tabstop=4
+set tabstop=8
 set shiftwidth=4
-set expandtab
+set softtabstop=8
+set shiftwidth=8
+set noexpandtab
 
 set nocompatible
-filetype off
 
-inoremap jk <esc>
+"inoremap jk <esc>
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -44,20 +37,17 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'tomlion/vim-solidity'
 Plugin 'vim-airline/vim-airline'
 Plugin 'rust-lang/rust.vim'
 Plugin 'mhinz/vim-startify'
 Plugin 'tpope/vim-rails'
 Plugin 'jodosha/vim-godebug'
-"Plugin 'tpope/vim-fireplace'
-"Plugin 'vim-scripts/mru.vim'
-"
 " FUCKING JAVASCRIPT
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'vim-airline/vim-airline-themes'
 " FUCKING PHP
 Plugin 'joonty/vim-phpqa.git'
-
 " Python
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'nvie/vim-flake8'
@@ -77,9 +67,7 @@ nnoremap <A-j> <C-W><C-J>
 nnoremap <A-k> <C-W><C-K>
 nnoremap <A-l> <C-W><C-L>
 nnoremap <A-h> <C-W><C-H>
-set splitbelow
 set splitright
-" inoremap jk <esc>
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
@@ -156,3 +144,4 @@ nmap <F8> :TagbarToggle<CR>
 
 " rust
 let g:rustfmt_autosave = 1
+au FileType rust nmap <leader>c <Plug>(!cargo build)
