@@ -166,8 +166,8 @@ bar {
 exec --no-startup-id nm-applet
 
 # sound
-bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
-bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
+bindsym XF86AudioRaiseVolume exec "amixer -q -D pulse sset Master 5%+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q -D pulse sset Master 5%- unmute"
 bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 
 # brightness
@@ -195,5 +195,5 @@ for_window [class="^.*"] border pixel 0
 # window
 # select window
 bindsym Print exec scrot ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
-bindsym $mod+Print exec scrot -s ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
+bindsym --release $mod+Print exec scrot -s ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
 bindsym $mod+Shift+Print exec scrot -u  ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
