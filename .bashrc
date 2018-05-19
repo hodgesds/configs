@@ -1,11 +1,15 @@
-
+export PS2="->"
+export EDITOR=vim
 export TERM=xterm-256color
 export COLORTERM=xterm-256color
-export GOROOT=$HOME/go
-export GOPATH=~/git/go
-export PATH=$PATH:~/bin:~/go/bin:~/git/go/bin
+export CDPATH=.:~:~/git/go/src/github.com:~/git
 export GOBIN=~/git/go/bin
-export CDPATH=~/git:$GOPATH/src/github.com/hodgesds
+export GOPATH=~/git/go
+export GOROOT=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+export PATH=$PATH:~/bin:~/go/bin:~/git/go/bin
+export PATH=$PATH:/usr/local/bin
+
 export PATH=$PATH:/opt/cassandra/current/bin:/opt/elasticsearch/current/bin
 export PATH=$PATH:/opt/hypertable/current/bin:/opt/redis/current/src
 export PATH=$PATH:/opt/solr/current/bin
@@ -15,6 +19,8 @@ export PATH=$PATH:~/tools/android-ndk-r10e
 export EDITOR=vim
 alias rmpyc='find . -name "*.pyc" -exec rm -rf {} \;'
 alias armcc='export ARCH="arm";export SUBARCH="arm";export CROSS_COMPILE="arm-eabi-"'
+
+
 
 j8() {
     export CLASSPATH=/opt/java/8/jdk1.8.0_60/lib
@@ -126,3 +132,7 @@ function set_prompt() {
 }
 
 export PROMPT_COMMAND=set_prompt
+alias night="xbacklight -set 10"
+alias day="xbacklight -set 100"
+alias lighter="xbacklight -inc 25"
+alias darker="xbacklight -dec 25"
