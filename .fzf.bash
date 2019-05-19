@@ -94,6 +94,13 @@ ftags() {
 # fman - search man
 fman() {
   local manpage
-  manpage=$(man -k . | sort | fzf --preview='echo {} |awk '\''{print($2," ",$1)}'\'' | sed "s/[\(|\)]//g" | xargs man')
+  manpage=$(man -k . | sort | fzf --preview='echo {} | awk '\''{print($2," ",$1)}'\'' | sed "s/[\(|\)]//g" | xargs man')
   echo "$manpage" | awk '{print($2," ",$1)}' | sed 's/[\(|\)]//g' | xargs man
+}
+
+
+t4port () {
+   local tport
+   tport=$(sudo ss -tlpn4 | sed '1d' | tr -s ' ' | fzf --preview='echo {} | cut -d ":" -f2 | cut -d " " -f1 | sudo xargs -IX ngrep -W byline -d any -q "" "tcp port X"' | cut -d ':' -f2 | cut -d ' ' -f1)
+   sudo ngrep -W byline -d any -q '' "tcp port $tport"
 }
