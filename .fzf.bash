@@ -90,3 +90,10 @@ ftags() {
   ) && ${EDITOR:-vim} $(cut -f3 <<< "$line") -c "set nocst" \
                                       -c "silent tag $(cut -f2 <<< "$line")"
 }
+
+# fman - search man
+fman() {
+  local manpage
+  manpage=$(man -k . | sort | fzf --preview='echo {} |awk '\''{print($2," ",$1)}'\'' | sed "s/[\(|\)]//g" | xargs man')
+  echo "$manpage" | awk '{print($2," ",$1)}' | sed 's/[\(|\)]//g' | xargs man
+}
