@@ -99,8 +99,22 @@ fman() {
 }
 
 
+#ngrep tcp port
 t4port () {
    local tport
    tport=$(sudo ss -tlpn4 | sed '1d' | tr -s ' ' | fzf --preview='echo {} | cut -d ":" -f2 | cut -d " " -f1 | sudo xargs -IX ngrep -W byline -d any -q "" "tcp port X"' | cut -d ':' -f2 | cut -d ' ' -f1)
    sudo ngrep -W byline -d any -q '' "tcp port $tport"
+}
+
+# perf trace pid
+ppid () {
+   local debugfs
+   debugfs=$(mount | grep debugfs | cut -d ' ' -f3)
+   local tracepoints
+   tracepoints=$(sudo cat "${debugfs}/tracing/available_events" | fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
+   if [ -z "$2" ]; then
+     sudo perf stat -a -v -e $(echo ${tracepoints} | tr -s ' ' ',') -p $1
+   else
+     sudo perf record -s -n --group -a -v -e $(echo ${tracepoints} | tr -s ' ' ',') -p $1 -o $2
+   fi
 }
