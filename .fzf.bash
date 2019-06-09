@@ -108,6 +108,7 @@ t4port () {
 
 # perf trace pid
 ppid () {
+   sudo ls >/dev/null
    local debugfs
    debugfs=$(mount | grep debugfs | cut -d ' ' -f3)
    local tracepoints
@@ -117,4 +118,14 @@ ppid () {
    else
      sudo perf record -s -n --group -a -v -e $(echo ${tracepoints} | tr -s ' ' ',') -p $1 -o $2
    fi
+}
+
+# perf trace program
+pstat () {
+   sudo ls >/dev/null
+   local debugfs
+   debugfs=$(mount | grep debugfs | cut -d ' ' -f3)
+   local tracepoints
+   tracepoints=$(sudo cat "${debugfs}/tracing/available_events" | fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
+   sudo perf stat -a -v -e $(echo ${tracepoints} | tr -s ' ' ',')  "$@"
 }
