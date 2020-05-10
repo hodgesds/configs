@@ -129,3 +129,11 @@ pstat () {
    tracepoints=$(sudo cat "${debugfs}/tracing/available_events" | fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
    sudo perf stat -a -v -e $(echo ${tracepoints} | tr -s ' ' ',')  "$@"
 }
+
+# mansysctl is used to attempt to generate docs for sysctl commands
+# see: https://www.kernel.org/doc/Documentation/sysctl/kernel.txt
+#mansysctl () {
+#   local=vars
+#   vars=$(sysctl -a | fzf -m --preview='cat /usr/src/linux/Documentation/* 2>/dev/null |xargs -IX sed -e "1,/{}/ d"')
+#   echo $vargs
+#}
