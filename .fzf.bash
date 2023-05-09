@@ -137,3 +137,38 @@ pstat () {
 #   vars=$(sysctl -a | fzf -m --preview='cat /usr/src/linux/Documentation/* 2>/dev/null |xargs -IX sed -e "1,/{}/ d"')
 #   echo $vargs
 #}
+# ftags - search ctags
+ftags() {
+  local line
+  [ -e tags ] &&
+  line=$(
+    awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
+    cut -c1-80 | fzf --nth=1,2
+  ) && ${EDITOR:-vim} $(cut -f3 <<< "$line") -c "set nocst" \
+                                      -c "silent tag $(cut -f2 <<< "$line")"
+}
+
+# pid trace per second
+pidtrace () {
+   local pid
+   pid="$1"
+   sudo ls >/dev/null || true
+   local tracepoints
+   tracepoints=$(sudo bpftrace -l | sed 's/[:]$//g' | fzf -m --preview='echo {} | xargs -IX sudo bpftrace -p '${pid}' -e "X { @counts = count(); } interval:s:1 { exit(); }"')
+   sudo bpftrace -lv "$tracepoints"
+   sudo bpftrace -p "${pid}" -e "${tracepoints}  { @counts = count(); } interval:s:1 { print(@counts); clear(@counts); }"
+}
+
+# pid symbol search
+pidsymbol () {
+   local pid
+   pid="$1"
+   cat /proc/$pid/maps | cut -c 74- | sort | uniq | sort -n | while read line; do nm /proc/$pid/root$line 2>/dev/null; done| fzf -m
+}
+
+pidreaddist() {
+   local pid
+   pid="$1"
+   sudo ls >/dev/null || true
+   sudo bpftrace -e "tracepoint:syscalls:sys_exit_read /pid == $pid / { @bytes = hist(args->ret); }"
+}
