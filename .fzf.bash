@@ -10,7 +10,8 @@ fi
 
 # Key bindings
 # ------------
-source "/home/daniel/.fzf/shell/key-bindings.bash"
+source "/home/daniel/.fzf/shell/key-bindings.bash" 2>/dev/null || true
+source "/usr/share/fzf/key-bindings.bash" 2> /dev/null
 
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
@@ -100,17 +101,17 @@ fman() {
 
 
 #ngrep tcp port
-t4port () {
+tngrep () {
    local tport
-   tport=$(sudo ss -tlpn4 | sed '1d' | tr -s ' ' | fzf --preview='echo {} | cut -d ":" -f2 | cut -d " " -f1 | sudo xargs -IX ngrep -W byline -d any -q "" "tcp port X"' | cut -d ':' -f2 | cut -d ' ' -f1)
+   tport=$(sudo ss -tlpn | sed '1d' | tr -s ' ' | fzf --preview='echo {} | cut -d ":" -f2 | cut -d " " -f1 | sudo xargs -IX ngrep -W byline -d any -q "" "tcp port X"' | cut -d ':' -f2 | cut -d ' ' -f1)
    sudo ngrep -W byline -d any -q '' "tcp port $tport"
 }
 
 # perf trace pid
 ppid () {
-   sudo ls >/dev/null
+   sudo ls >/dev/null || true
    local debugfs
-   debugfs=$(mount | grep debugfs | cut -d ' ' -f3)
+   debugfs=$(mount | grep debugfs | cut -d ' ' -f3 | sort)
    local tracepoints
    tracepoints=$(sudo cat "${debugfs}/tracing/available_events" | fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
    if [ -z "$2" ]; then
@@ -122,12 +123,19 @@ ppid () {
 
 # perf trace program
 pstat () {
-   sudo ls >/dev/null
+   sudo ls >/dev/null || true
    local debugfs
-   debugfs=$(mount | grep debugfs | cut -d ' ' -f3)
+   debugfs=$(mount | grep debugfs | cut -d ' ' -f3 | sort)
    local tracepoints
    tracepoints=$(sudo cat "${debugfs}/tracing/available_events" | fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
-   sudo perf stat -a -v -e $(echo ${tracepoints} | tr -s ' ' ',')  "$@"
+   sudo perf stat -v -e $(echo ${tracepoints} | tr -s ' ' ',')  "$@"
+}
+
+# ungrep- ngrep udp sockets
+ungrep () {
+   local filter
+   filter=$(ss -au | grep -vi state | fzf -m | tr -s ' ' | cut -d ' ' -f4 | cut -d ':' -f1)
+   ngrep -W byline -d any "$filter"
 }
 
 # mansysctl is used to attempt to generate docs for sysctl commands
@@ -137,6 +145,7 @@ pstat () {
 #   vars=$(sysctl -a | fzf -m --preview='cat /usr/src/linux/Documentation/* 2>/dev/null |xargs -IX sed -e "1,/{}/ d"')
 #   echo $vargs
 #}
+
 # ftags - search ctags
 ftags() {
   local line
@@ -172,3 +181,4 @@ pidreaddist() {
    sudo ls >/dev/null || true
    sudo bpftrace -e "tracepoint:syscalls:sys_exit_read /pid == $pid / { @bytes = hist(args->ret); }"
 }
+

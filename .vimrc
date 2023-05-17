@@ -15,6 +15,10 @@ set noexpandtab
 
 set nocompatible
 
+au BufRead,BufNewFile *BUCK             setfiletype buck
+# au FileType buck nmap <leader>b !buck2 build ...
+au FileType buck nmap <leader>b <Plug>(!buck build ... )
+
 "inoremap jk <esc>
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -37,19 +41,19 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'tomlion/vim-solidity'
+"Plugin 'tomlion/vim-solidity'
 Plugin 'vim-airline/vim-airline'
 Plugin 'rust-lang/rust.vim'
 Plugin 'mhinz/vim-startify'
-Plugin 'tpope/vim-rails'
-Plugin 'jodosha/vim-godebug'
+"Plugin 'tpope/vim-rails'
+"Plugin 'jodosha/vim-godebug'
 " FUCKING JAVASCRIPT
-Plugin 'jelera/vim-javascript-syntax'
+"Plugin 'jelera/vim-javascript-syntax'
 Plugin 'vim-airline/vim-airline-themes'
 " FUCKING PHP
-Plugin 'joonty/vim-phpqa.git'
+"Plugin 'joonty/vim-phpqa.git'
 " Python
-Plugin 'jmcantrell/vim-virtualenv'
+"Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'nvie/vim-flake8'
 
 call vundle#end()
@@ -106,9 +110,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_metalinter_autosave = 1
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_metalinter_autosave = 0
+"let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 au FileType go nmap <leader>b <Plug>(go-doc-browser)
 au FileType go nmap <leader>c <Plug>(go-coverage)

@@ -3,6 +3,7 @@
 [user]
   name = Daniel Hodges
   email = hodges.daniel.scott@gmail.com
+  signingkey = F57809262E4664D3D2445FCBD295F6D6F3E97B18
 [alias]
   st = status
   br = branch
@@ -26,4 +27,12 @@
   smtpEncryption = tls
   smtpUser = hodges.daniel.scott@gmail.com
 [include]
-  path = /home/daniel/.config.local 
+  path = /home/daniel/.config.local
+[gpg]
+  program = gpg2
+[commit]
+  gpgsign = true
+[safe]
+  directory = /home/daniel/git/bcc
+  directory = /home/daniel/git/bcc/src/cc/libbpf
+  directory = /home/daniel/git/bcc/libbpf-tools/bpftool
