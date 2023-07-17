@@ -1,77 +1,98 @@
-set encoding=utf-8
-let mapleader = ","
+filetype plugin indent on
 syntax enable
+
+let mapleader = ","
 set tags+=tags;$HOME
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-set smartindent
-set tabstop=8
-set shiftwidth=4
-set softtabstop=8
-set shiftwidth=8
-set noexpandtab
-
 set nocompatible
-
-au BufRead,BufNewFile *BUCK             setfiletype buck
-# au FileType buck nmap <leader>b !buck2 build ...
-au FileType buck nmap <leader>b <Plug>(!buck build ... )
-
-"inoremap jk <esc>
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'airblade/vim-gitgutter'
-Plugin 'elzr/vim-json'
-Plugin 'fatih/vim-go'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'gmarik/Vundle.vim'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'rking/ag.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'szw/vim-tags'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-surround'
-Plugin 'Valloric/YouCompleteMe'
-"Plugin 'tomlion/vim-solidity'
-Plugin 'vim-airline/vim-airline'
-Plugin 'rust-lang/rust.vim'
-Plugin 'mhinz/vim-startify'
-"Plugin 'tpope/vim-rails'
-"Plugin 'jodosha/vim-godebug'
-" FUCKING JAVASCRIPT
-"Plugin 'jelera/vim-javascript-syntax'
-Plugin 'vim-airline/vim-airline-themes'
-" FUCKING PHP
-"Plugin 'joonty/vim-phpqa.git'
-" Python
-"Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'nvie/vim-flake8'
-
-call vundle#end()
-
-filetype plugin indent on
-
-" rust
-let g:rustfmt_autosave = 1
-
+set noexpandtab
 set number
 set ruler
-
-set timeout ttimeoutlen=50
-nnoremap <A-j> <C-W><C-J>
-nnoremap <A-k> <C-W><C-K>
-nnoremap <A-l> <C-W><C-L>
-nnoremap <A-h> <C-W><C-H>
+set shiftwidth=4
+set shiftwidth=8
+set smartindent
+set softtabstop=8
 set splitright
+set tabstop=8
+set updatetime=300
+
+"inoremap jk <esc>
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+  nnoremap <A-j> <C-W><C-J>
+  nnoremap <A-k> <C-W><C-K>
+  nnoremap <A-l> <C-W><C-L>
+  nnoremap <A-h> <C-W><C-H>
+else
+  set timeout ttimeoutlen=50
+  execute "set <A-j>=\ej"
+  execute "set <A-k>=\ek"
+  execute "set <A-l>=\el"
+  execute "set <A-h>=\eh"
+  inoremap <silent><expr> <c-@> coc#refresh()
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  map <up> <C-w><up>
+  map <down> <C-w><down>
+  map <left> <C-w><left>
+  map <right> <C-w><right>
+  noremap <A-j> <C-w><up>
+  noremap <A-k> <C-w><down>
+  noremap <A-l> <C-w><right>
+  noremap <A-h> <C-w><left>
+endif
+
+
+au BufRead,BufNewFile *BUCK setfiletype buck
+au FileType buck nmap <leader>b <Plug>(buck2 build ...)
+
+
+if has('nvim')
+
+else
+  set encoding=utf-8
+endif
+
+call plug#begin()
+Plug 'airblade/vim-gitgutter'
+Plug 'dense-analysis/ale'
+Plug 'elzr/vim-json'
+Plug 'fatih/vim-go'
+Plug 'flazz/vim-colorschemes'
+Plug 'junegunn/fzf'
+Plug 'junegunn/vim-easy-align'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvie/vim-flake8'
+Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'szw/vim-tags'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
+
+" coc
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
@@ -91,18 +112,21 @@ endfunc
 
 autocmd BufWrite *.py :call DeleteTrailingWS()
 
-let g:airline#extensions#tabline#enabled = 1
-"let g:airline_powerline_fonts = 1
-let g:airline_theme = 'molokai'
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = 'molokai'
+
+" ale
+set completeopt=menu,menuone,preview,noselect,noinsert
+let g:ale_completion_enabled = 1
+let g:ale_fixers = {'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']}
+let g:ale_linters = {'rust': ['analyzer']}
 
 " vim-go
 let g:go_highlight_functions = 1
@@ -128,21 +152,6 @@ au FileType go nmap <leader>t <Plug>(go-info)
 au FileType go nmap <leader>v <Plug>(go-vet)
 au FileType go nmap <leader>x <Plug>(go-run-vertical)
 au FileType go nmap <leader>z <Plug>(go-coverage-clear)
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-
-" emmet only html, css files
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
-
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
 
 nmap <F8> :TagbarToggle<CR>
 

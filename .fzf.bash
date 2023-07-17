@@ -95,7 +95,9 @@ ftags() {
 # fman - search man
 fman() {
   local manpage
-  manpage=$(man -k . | sort | fzf --preview='echo {} | awk '\''{print($2," ",$1)}'\'' | sed "s/[\(|\)]//g" | xargs man')
+  manpage=$(
+	man -k . | sort |
+	fzf --preview='echo {} | awk '\''{print($2," ",$1)}'\'' | sed "s/[\(|\)]//g" | xargs man')
   echo "$manpage" | awk '{print($2," ",$1)}' | sed 's/[\(|\)]//g' | xargs man
 }
 
@@ -103,7 +105,9 @@ fman() {
 #ngrep tcp port
 tngrep () {
    local tport
-   tport=$(sudo ss -tlpn | sed '1d' | tr -s ' ' | fzf --preview='echo {} | cut -d ":" -f2 | cut -d " " -f1 | sudo xargs -IX ngrep -W byline -d any -q "" "tcp port X"' | cut -d ':' -f2 | cut -d ' ' -f1)
+   tport=$(
+	sudo ss -tlpn | sed '1d' | tr -s ' ' |
+	fzf --preview='echo {} | cut -d ":" -f2 | cut -d " " -f1 | sudo xargs -IX ngrep -W byline -d any -q "" "tcp port X"' | cut -d ':' -f2 | cut -d ' ' -f1)
    sudo ngrep -W byline -d any -q '' "tcp port $tport"
 }
 
@@ -113,7 +117,9 @@ ppid () {
    local debugfs
    debugfs=$(mount | grep debugfs | cut -d ' ' -f3 | sort)
    local tracepoints
-   tracepoints=$(sudo cat "${debugfs}/tracing/available_events" | fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
+   tracepoints=$(
+	sudo cat "${debugfs}/tracing/available_events" |
+	fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
    if [ -z "$2" ]; then
      sudo perf stat -a -v -e $(echo ${tracepoints} | tr -s ' ' ',') -p $1
    else
@@ -127,7 +133,9 @@ pstat () {
    local debugfs
    debugfs=$(mount | grep debugfs | cut -d ' ' -f3 | sort)
    local tracepoints
-   tracepoints=$(sudo cat "${debugfs}/tracing/available_events" | fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
+   tracepoints=$(
+	sudo cat "${debugfs}/tracing/available_events" |
+	fzf -m --preview='echo {} | sed "s/\:/\//g" | xargs -IX sudo cat "'${debugfs}'/tracing/events/X/format"')
    sudo perf stat -v -e $(echo ${tracepoints} | tr -s ' ' ',')  "$@"
 }
 
@@ -163,7 +171,9 @@ pidtrace () {
    pid="$1"
    sudo ls >/dev/null || true
    local tracepoints
-   tracepoints=$(sudo bpftrace -l | sed 's/[:]$//g' | fzf -m --preview='echo {} | xargs -IX sudo bpftrace -p '${pid}' -e "X { @counts = count(); } interval:s:1 { exit(); }"')
+   tracepoints=$(sudo bpftrace -l |
+	   sed 's/[:]$//g'        |
+	   fzf -m --preview='echo {} | xargs -IX sudo bpftrace -p '${pid}' -e "X { @counts = count(); } interval:s:1 { exit(); }"')
    sudo bpftrace -lv "$tracepoints"
    sudo bpftrace -p "${pid}" -e "${tracepoints}  { @counts = count(); } interval:s:1 { print(@counts); clear(@counts); }"
 }
@@ -172,7 +182,14 @@ pidtrace () {
 pidsymbol () {
    local pid
    pid="$1"
-   cat /proc/$pid/maps | cut -c 74- | sort | uniq | sort -n | while read line; do nm /proc/$pid/root$line 2>/dev/null; done| fzf -m
+   cat /proc/$pid/maps |
+	grep -v '.*\[' |
+	cut -c 74-     |
+	sort | uniq    |
+	sort -n        |
+	while read line; do
+		nm -D /proc/$pid/root$line 2>/dev/null;
+	done | fzf -m
 }
 
 pidreaddist() {
