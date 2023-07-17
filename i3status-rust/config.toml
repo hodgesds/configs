@@ -1,0 +1,121 @@
+icons_format = "{icon}"
+
+[theme]
+theme = "solarized-dark"
+
+[icons]
+icons = "awesome5"
+
+[[block]]
+block = "time"
+interval = 5
+format = " $icon $timestamp.datetime(f:'%m/%d %r')"
+
+[[block]]
+block = "notify"
+format = " $icon {$paused{Off}|On} "
+driver = "swaync"
+[[block.click]]
+button = "left"
+action = "show"
+[[block.click]]
+button = "right"
+action = "toggle_paused"
+
+[[block]]
+block = "temperature"
+format = " $icon $max|$avg"
+format_alt = " $icon $max max, $average avg "
+interval = 8
+
+[[block]]
+block = "amd_gpu"
+interval = 3
+format = " $icon $utilization "
+# format_alt = " $icon MEM: $vram_used_percents ($vram_used/$vram_total) "
+
+#[[block]]
+#block = "xrandr"
+#resolution = true
+# icons = false
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+format = "$icon $used /$total"
+
+[[block]]
+block = "memory"
+# clickable = false
+interval = 4
+
+[[block]]
+block = "cpu"
+interval = 3
+format = "$barchart $frequency"
+#format = "{frequency}"
+
+[[block]]
+block = "load"
+interval = 7
+
+[[block]]
+block = "bluetooth"
+mac = "C0:3C:59:31:2A:1C"
+format = " $icon "
+[block.battery_state]
+"0..10" = "critical"
+"21..70" = "warning"
+"71..100" = "good"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "backlight"
+device = "amdgpu_bl0"
+invert_icons = true
+
+
+[[block]]
+block = "net"
+device = "eth0"
+missing_format = ""
+# on_click = "alacritty -e nmtui"
+
+[[block]]
+block = "net"
+device = "wlan0"
+format = " $icon ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) {$signal_strength $ssid $frequency|Wired connection} $device "
+# format = "{speed_down;K*b}/{speed_up;K*b}"
+# hide_inactive = true
+interval = 3
+
+[[block]]
+block = "external_ip"
+format = " $ip $city $country_flag"
+
+[[block]]
+block = "battery"
+interval = 16
+format = "$icon $percentage {$time |}"
+
+[[block]]
+block = "menu"
+text = "\uf011"
+[[block.items]]
+display = " -&gt;   Sleep   &lt;-"
+cmd = "systemctl suspend"
+[[block.items]]
+display = " -&gt; Power Off &lt;-"
+cmd = "poweroff"
+confirm_msg = "Are you sure you want to power off?"
+[[block.items]]
+display = " -&gt;  Reboot   &lt;-"
+cmd = "reboot"
+confirm_msg = "Are you sure you want to reboot?"
