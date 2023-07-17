@@ -13,7 +13,8 @@ window:
 
 bell:
   animation: EaseOutExpo
-  color: "#202020"
+  # color: "#202020"
+  color: "#000000"
   duration: 400
   # command:
     # program: notify-send
