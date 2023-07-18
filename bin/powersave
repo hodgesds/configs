@@ -1,0 +1,9 @@
+#!/bin/bash
+sudo ls 2>&1 1>/dev/null
+CPUS=$(lscpu | grep -i '^CPU(s):' | tr -s ' ' ' ' | cut -d ' ' -f 2)
+for i in $(seq 0 $((CPUS-1))); do
+  echo powersave | sudo tee "/sys/devices/system/cpu/cpu$i/cpufreq/scaling_governor"
+done
+if ! type powertop > /dev/null; then
+  sudo powertop --auto-tune
+fi
