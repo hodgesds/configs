@@ -1,0 +1,10 @@
+#!/bin/bash
+# run_cmd=$(bmenu_path | bemenu "$@")
+"$@" &
+cg_pid=$!
+cg_path="$CG_HOME/cgrun/${cg_pid}"
+echo "creating cgroup $cg_path"
+mkdir -p "${cg_path}" 2>/dev/null || # sudo chown -R $USER:$USER "$CG_HOME"
+echo "$cg_pid" > "$cg_path/cgroup.procs" 2>/dev/null || # sudo chown -R $USER:$USER ${cg_path}
+# echo "$cg_pid" > "$cg_path/cgroup.procs" 2>/dev/null || exit 1
+wait "${cg_pid}" && rmdir --ignore-fail-on-non-empty "${cg_path}"

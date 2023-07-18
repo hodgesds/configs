@@ -1,0 +1,7 @@
+#!/bin/bash
+mkdir -p "$HOME/.cgroup2"
+sudo mount -t cgroup2 -rw none "$HOME/.cgroup2"
+sudo mkdir -p "$HOME/.cgroup2/$USER/"
+sudo mkdir -p "$HOME/.cgroup2/$USER/cgrun"
+sudo chown -R "$USER:$USER" "$HOME/.cgroup2/$USER"
+echo "+pids +memory +cpuset +cpu +io" | sudo tee -a "$HOME/.cgroup2/$USER/cgroup.subtree_control"

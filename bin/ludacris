@@ -1,0 +1,8 @@
+#!/bin/bash
+CPUS=$(lscpu | grep -i '^CPU(s):' | tr -s ' ' ' ' | cut -d ' ' -f 2)
+for i in $(seq 0 $((CPUS-1))); do
+  echo performance | sudo tee /sys/devices/system/cpu/cpu$i/cpufreq/scaling_governor
+done
+if ! type ryzenadj > /dev/null; then
+  sudo ryzenadj --max-performance
+fi

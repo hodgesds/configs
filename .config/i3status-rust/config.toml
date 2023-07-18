@@ -7,12 +7,6 @@ theme = "solarized-dark"
 icons = "awesome5"
 
 [[block]]
-block = "temperature"
-format = " $icon $max max "
-format_alt = " $icon $min min, $max max, $average avg "
-interval = 8
-
-[[block]]
 block = "time"
 interval = 5
 format = " $icon $timestamp.datetime(f:'%m/%d %r')"
@@ -28,11 +22,17 @@ action = "show"
 button = "right"
 action = "toggle_paused"
 
-# [[block]]
-# block = "amdgpu"
-# format = " $icon $utilization "
+[[block]]
+block = "temperature"
+format = " $icon $max|$avg"
+format_alt = " $icon $max max, $average avg "
+interval = 8
+
+[[block]]
+block = "amd_gpu"
+interval = 3
+format = " $icon $utilization "
 # format_alt = " $icon MEM: $vram_used_percents ($vram_used/$vram_total) "
-# interval = 1
 
 #[[block]]
 #block = "xrandr"
@@ -81,10 +81,6 @@ block = "backlight"
 device = "amdgpu_bl0"
 invert_icons = true
 
-[[block]]
-block = "battery"
-interval = 16
-format = "$icon $percentage {$time |}"
 
 [[block]]
 block = "net"
@@ -99,6 +95,15 @@ format = " $icon ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up
 # format = "{speed_down;K*b}/{speed_up;K*b}"
 # hide_inactive = true
 interval = 3
+
+[[block]]
+block = "external_ip"
+format = " $ip $city $country_flag"
+
+[[block]]
+block = "battery"
+interval = 16
+format = "$icon $percentage {$time |}"
 
 [[block]]
 block = "menu"
