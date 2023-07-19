@@ -47,6 +47,12 @@ else
   noremap <A-h> <C-w><left>
 endif
 
+" OSX
+nnoremap ∆ <C-W><C-J>
+nnoremap ˚ <C-W><C-K>
+nnoremap ˙ <C-W><C-H>
+nnoremap ¬ <C-W><C-L>
+
 
 au BufRead,BufNewFile *BUCK setfiletype buck
 au FileType buck nmap <leader>b <Plug>(buck2 build ...)
