@@ -1,5 +1,6 @@
 [core]
   editor = vim
+  excludesFile = /home/daniel/.gitignore
 [user]
   name = Daniel Hodges
   email = hodges.daniel.scott@gmail.com
@@ -36,3 +37,5 @@
   directory = /home/daniel/git/bcc
   directory = /home/daniel/git/bcc/src/cc/libbpf
   directory = /home/daniel/git/bcc/libbpf-tools/bpftool
+[credential]
+  helper = store

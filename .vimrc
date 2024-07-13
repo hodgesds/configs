@@ -21,7 +21,7 @@ set updatetime=300
 
 "inoremap jk <esc>
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+  " inoremap <silent><expr> <c-space> coc#refresh()
   nnoremap <A-j> <C-W><C-J>
   nnoremap <A-k> <C-W><C-K>
   nnoremap <A-l> <C-W><C-L>
@@ -32,11 +32,11 @@ else
   execute "set <A-k>=\ek"
   execute "set <A-l>=\el"
   execute "set <A-h>=\eh"
-  inoremap <silent><expr> <c-@> coc#refresh()
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
+  " inoremap <silent><expr> <c-@> coc#refresh()
+  " nmap <silent> gd <Plug>(coc-definition)
+  " nmap <silent> gy <Plug>(coc-type-definition)
+  " nmap <silent> gi <Plug>(coc-implementation)
+  " nmap <silent> gr <Plug>(coc-references)
   map <up> <C-w><up>
   map <down> <C-w><down>
   map <left> <C-w><left>
@@ -56,6 +56,12 @@ nnoremap ¬ <C-W><C-L>
 
 au BufRead,BufNewFile *BUCK setfiletype buck
 au FileType buck nmap <leader>b <Plug>(buck2 build ...)
+au BufRead,BufNewFile *.rs setfiletype rust
+au FileType rust nmap <leader>b :!cargo build --release<Cr>
+au BufRead,BufNewFile *.ebuild setfiletype ebuild
+au FileType ebuild nmap <leader>b :!ebuild *.ebuild digest<Cr>
+
+nmap <leader>n :set invnumber<Cr>
 
 
 if has('nvim')
@@ -66,7 +72,7 @@ endif
 
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go'
 Plug 'flazz/vim-colorschemes'
@@ -87,16 +93,16 @@ call plug#end()
 
 
 " coc
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 
 
@@ -129,10 +135,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'molokai'
 
 " ale
-set completeopt=menu,menuone,preview,noselect,noinsert
-let g:ale_completion_enabled = 1
-let g:ale_fixers = {'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']}
-let g:ale_linters = {'rust': ['analyzer']}
+" set completeopt=menu,menuone,preview,noselect,noinsert
+" let g:ale_completion_enabled = 0
+" let g:ale_fixers = {'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']}
+" let g:ale_linters = {'rust': ['analyzer']}
 
 " vim-go
 let g:go_highlight_functions = 1
@@ -162,5 +168,5 @@ au FileType go nmap <leader>z <Plug>(go-coverage-clear)
 nmap <F8> :TagbarToggle<CR>
 
 " rust
-let g:rustfmt_autosave = 1
+let g:rustfmt_autosave = 0
 au FileType rust nmap <leader>c <Plug>(!cargo build)

@@ -66,8 +66,9 @@ interval = 7
 
 [[block]]
 block = "bluetooth"
-mac = "C0:3C:59:31:2A:1C"
-format = " $icon "
+#mac = "C0:3C:59:31:2A:1C"
+mac = "88:C9:E8:46:A8:0C"
+format = " $icon $name{$percentage|}"
 [block.battery_state]
 "0..10" = "critical"
 "21..70" = "warning"
@@ -96,9 +97,10 @@ format = " $icon ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up
 # hide_inactive = true
 interval = 3
 
-[[block]]
-block = "external_ip"
-format = " $ip $city $country_flag"
+#[[block]]
+#block = "external_ip"
+#format = " $ip $city $country_flag"
+#interval = 600
 
 [[block]]
 block = "battery"

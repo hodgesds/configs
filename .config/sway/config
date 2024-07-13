@@ -76,7 +76,7 @@ bindsym XF86MonBrightnessDown exec swayosd --brightness lower
 
 # bindsym XF86MonBrightnessUp exec "echo $((5+$(cat /sys/class/backlight/acpi_video0/brightness))) > /sys/class/backlight/acpi_video0/brightness"
 # bindsym XF86MonBrightnessDown exec "echo $(($(cat /sys/class/backlight/acpi_video0/brightness)-5)) > /sys/class/backlight/acpi_video0/brightness"
-# bindsym Print exec scrot ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
+bindsym Print exec grims -o ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
 # bindsym --release $mod+Print exec scrot -s ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
 # bindsym $mod+Shift+Print exec scrot -u  ~/screenshots/$(date '+%Y-%m-%d-%H:%M:%S').png
 
@@ -233,7 +233,8 @@ bindgesture swipe:left workspace next
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position bottom
-    status_command ~/.cargo/bin/i3status-rs
+    # status_command ~/.cargo/bin/i3status-rs
+    status_command /usr/bin/i3status
     # status_command swaybar
 
     # When the status_command prints a new line to stdout, swaybar updates.
