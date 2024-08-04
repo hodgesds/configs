@@ -72,7 +72,7 @@ endif
 
 call plug#begin()
 Plug 'airblade/vim-gitgutter'
-" Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go'
 Plug 'flazz/vim-colorschemes'
@@ -82,7 +82,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'nvie/vim-flake8'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'szw/vim-tags'
@@ -93,17 +92,25 @@ call plug#end()
 
 
 " coc
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
@@ -135,8 +142,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'molokai'
 
 " ale
-" set completeopt=menu,menuone,preview,noselect,noinsert
-" let g:ale_completion_enabled = 0
+set completeopt=menu,menuone,preview,noselect,noinsert
+let g:ale_completion_enabled = 0
 " let g:ale_fixers = {'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']}
 " let g:ale_linters = {'rust': ['analyzer']}
 
@@ -147,8 +154,6 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_metalinter_autosave = 0
-"let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 au FileType go nmap <leader>b <Plug>(go-doc-browser)
 au FileType go nmap <leader>c <Plug>(go-coverage)
