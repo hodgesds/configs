@@ -79,7 +79,6 @@ Plug 'flazz/vim-colorschemes'
 Plug 'junegunn/fzf'
 Plug 'junegunn/vim-easy-align'
 Plug 'kien/ctrlp.vim'
-Plug 'majutsushi/tagbar'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'rust-lang/rust.vim'
@@ -144,8 +143,9 @@ let g:airline_theme = 'molokai'
 " ale
 set completeopt=menu,menuone,preview,noselect,noinsert
 let g:ale_completion_enabled = 0
-" let g:ale_fixers = {'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']}
-" let g:ale_linters = {'rust': ['analyzer']}
+let g:ale_linters_explicit = 1
+"let g:ale_fixers = {'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']}
+let g:ale_linters = {'rust': ['analyzer', 'trim_whitespace', 'remove_trainling_lines']}
 
 " vim-go
 let g:go_highlight_functions = 1
